@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpressCreator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ImpressCreator</h1>
+            <p>Crea presentaciones impresionantes con impress.js</p>
+        </header>
+
+        <main>
+            <div class="editor-panel">
+                <div class="slide-list">
+                    <div class="slide-list-header">
+                        <h3>Diapositivas</h3>
+                        <button id="theme-toggle" class="btn-theme"><i data-feather="sun"></i>Diseño Nórdico</button>
+                    </div>
+                    <div id="slides-container">
+                        <div class="slide-item active" data-slide="0">
+                            <span>Diapositiva 1</span>
+                            <button class="delete-slide"><i data-feather="x"></i></button>
+                        </div>
+                    </div>
+                    <button id="add-slide" class="btn-secondary"><i data-feather="plus"></i>Agregar Diapositiva</button>
+                </div>
+
+                <div class="content-editor">
+                    <div class="editor-header">
+                        <h3>Editor de Contenido</h3>
+                        <select id="slide-type">
+                            <option value="slide">Diapositiva Normal</option>
+                            <option value="step">Paso Simple</option>
+                            <option value="title">Título Principal</option>
+                            <option value="overview">Vista General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="effect-buttons">
+                        <button class="effect-btn" data-effect="slide"><i data-feather="square"></i>Slide</button>
+                        <button class="effect-btn" data-effect="zoom"><i data-feather="zoom-in"></i>Zoom</button>
+                        <button class="effect-btn" data-effect="rotate"><i data-feather="rotate-cw"></i>Rotar</button>
+                        <button class="effect-btn" data-effect="3d"><i data-feather="box"></i>3D</button>
+                        <button class="effect-btn" data-effect="big"><i data-feather="maximize"></i>Grande</button>
+                        <button class="effect-btn" data-effect="tiny"><i data-feather="minimize"></i>Pequeño</button>
+                    </div>
+                    
+                    <textarea id="slide-content" placeholder="Escribe el contenido de tu diapositiva aquí..."></textarea>
+                    
+                    <div class="controls">
+                        <div class="control-group">
+                            <label>Posición X:</label>
+                            <input type="number" id="pos-x" value="0" step="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Posición Y:</label>
+                            <input type="number" id="pos-y" value="0" step="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Posición Z:</label>
+                            <input type="number" id="pos-z" value="0" step="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Rotación Z:</label>
+                            <input type="number" id="rotation" value="0" step="15">
+                        </div>
+                        <div class="control-group">
+                            <label>Rotación X:</label>
+                            <input type="number" id="rotate-x" value="0" step="15">
+                        </div>
+                        <div class="control-group">
+                            <label>Rotación Y:</label>
+                            <input type="number" id="rotate-y" value="0" step="15">
+                        </div>
+                        <div class="control-group">
+                            <label>Escala:</label>
+                            <input type="number" id="scale" value="1" step="0.1" min="0.1" max="10">
+                        </div>
+                        <div class="control-group">
+                            <label>Autoplay (seg):</label>
+                            <input type="number" id="autoplay" value="0" step="1" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="background-controls">
+                        <h4>Fondo de Presentación</h4>
+                        <div class="control-group">
+                            <label>Imagen de fondo:</label>
+                            <input type="file" id="background-image" accept="image/*">
+                        </div>
+                        <div class="control-group">
+                            <button id="remove-background" class="btn-remove"><i data-feather="image"></i>Quitar Fondo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <h3>Vista Previa</h3>
+                    <div class="preview-controls">
+                        <button id="prev-slide" class="btn-icon"><i data-feather="chevron-left"></i></button>
+                        <span id="slide-counter">1 / 1</span>
+                        <button id="next-slide" class="btn-icon"><i data-feather="chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="preview-container">
+                    <iframe id="preview-frame" src="about:blank"></iframe>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-buttons">
+                <div class="undo-redo-buttons">
+                    <button id="undo-btn" class="btn-undo tooltip" data-tooltip="Deshacer" disabled>
+                        <i data-feather="rotate-ccw"></i>
+                    </button>
+                    <button id="redo-btn" class="btn-redo tooltip" data-tooltip="Rehacer" disabled>
+                        <i data-feather="rotate-cw"></i>
+                    </button>
+                </div>
+                <button id="load-demo" class="btn-secondary"><i data-feather="play"></i>Cargar Demo</button>
+                <button id="clear-all" class="btn-secondary"><i data-feather="trash-2"></i>Limpiar Todo</button>
+                <button id="download-btn" class="btn-primary"><i data-feather="download"></i>Descargar Presentación</button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>feather.replace()</script>
+</body>
+</html>
